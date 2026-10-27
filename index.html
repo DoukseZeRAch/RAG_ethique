@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Préparation de notre réunion</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: une seule colonne de lecture, sections numérotées car le déroulé est une vraie séquence */
+:root {
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6673;
+  --line: #dde2e7;
+  --accent: #1f4f6e;
+  --accent-soft: #e6eef4;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --paper: #1a2129; --ink: #e6ebf0; --muted: #9aa6b2;
+    --line: #2c3540; --accent: #8cbad8; --accent-soft: #1f2d39; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --paper: #1a2129; --ink: #e6ebf0; --muted: #9aa6b2;
+  --line: #2c3540; --accent: #8cbad8; --accent-soft: #1f2d39; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+}
+.wrap {
+  max-width: 720px; margin: 0 auto;
+  padding-block: 48px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 40px;
+}
+header { display: flex; flex-direction: column; gap: 12px; }
+.eyebrow {
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+}
+h1 {
+  font-family: var(--display); font-weight: 600; font-size: clamp(30px, 6vw, 42px);
+  line-height: 1.15; margin: 0; text-wrap: balance;
+}
+.lead { margin: 0; color: var(--muted); font-size: 17px; max-width: 62ch; }
+.meta { font-size: 14px; color: var(--muted); }
+.agenda {
+  background: var(--accent-soft); border-radius: 10px; padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.agenda h2 { font-family: var(--body); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0; color: var(--accent); }
+.agenda ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.agenda .t { color: var(--muted); font-variant-numeric: tabular-nums; }
+section { display: flex; flex-direction: column; gap: 14px; }
+.sec-head { display: flex; align-items: baseline; gap: 14px; border-top: 1px solid var(--line); padding-top: 22px; }
+.num { font-family: var(--display); font-size: 28px; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; }
+h2.title { font-family: var(--display); font-weight: 600; font-size: 24px; margin: 0; text-wrap: balance; }
+.intro { margin: 0; color: var(--muted); max-width: 62ch; }
+ul.q { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+ul.q li {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+  padding: 12px 16px; max-width: 65ch;
+}
+.prep { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.prep h2 { font-family: var(--display); font-weight: 600; font-size: 22px; margin: 0; }
+.prep ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+ul.q li { display: flex; flex-direction: column; gap: 8px; }
+textarea {
+  font: inherit; font-size: 15px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px;
+  min-height: 64px; resize: vertical; width: 100%; box-sizing: border-box;
+}
+textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+textarea:disabled { opacity: .6; }
+.saved { font-size: 12px; color: var(--muted); min-height: 1em; }
+.status { font-size: 14px; color: var(--muted); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+.free textarea { min-height: 110px; }
+footer { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+
+.hint { display: block; font-size: 13px; color: var(--muted); }
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.choice input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+.choices input[type="text"] { font: inherit; font-size: 15px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; box-sizing: border-box; }
+.choices input[type="text"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.send { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); padding-top: 22px; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+button { font: inherit; font-weight: 600; font-size: 15px; padding: 10px 16px; border-radius: 8px; cursor: pointer; background: var(--accent); color: var(--paper); border: 1px solid var(--accent); }
+button.ghost { background: transparent; color: var(--accent); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Assistant documentaire · Éthique des affaires</span>
+    <h1>Préparation de notre réunion</h1>
+    <p class="lead">Avant de proposer quoi que ce soit, je souhaite bien comprendre votre besoin, vos clients et votre corpus. Voici les questions que j'aimerais aborder avec vous. Si vous le souhaitez, vous pouvez y répondre directement sous chaque question : votre brouillon reste dans votre navigateur et vous me l'envoyez en fin de page. Quelques mots suffisent, nous approfondirons en réunion.</p>
+    <span class="meta">Rachid Seddouk · 27 octobre 2026</span>
+  </header>
+
+  <div class="agenda">
+    <h2>Déroulé proposé · environ 1 heure</h2>
+    <ol>
+      <li>Votre besoin et vos usages <span class="t">· 20 min</span></li>
+      <li>Les clients du pilote <span class="t">· 15 min</span></li>
+      <li>Votre corpus <span class="t">· 15 min</span></li>
+      <li>Vos limites déontologiques <span class="t">· 10 min</span></li>
+    </ol>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="num">1</span><h2 class="title">Votre besoin et vos usages</h2></div>
+    <ul class="q">
+      <li data-choices="Gagner du temps|Mieux servir mes clients|Proposer un nouveau service">Quel problème voulez-vous résoudre en priorité ? <span class="hint">Plusieurs choix possibles</span></li>
+      <li>Quelles questions vos clients vous posent-ils le plus souvent ? Pourriez-vous m'en citer cinq à dix ?</li>
+      <li>Aujourd'hui, comment y répondez-vous : mail, appel, rendez-vous ? Combien de temps cela vous prend-il par semaine ?</li>
+      <li>Quels thèmes reviennent le plus dans les demandes de vos clients ?</li>
+      <li data-choices="Expliquer|Orienter|Proposer des modèles de documents">Jusqu'où l'outil peut-il aller ? <span class="hint">Plusieurs choix possibles</span></li>
+      <li>À partir de quand une question doit-elle obligatoirement vous être renvoyée ?</li>
+      <li>Comment envisagez-vous de le proposer à vos clients : inclus dans votre accompagnement, payant à part, offert ?</li>
+      <li>Avez-vous déjà testé des outils d'IA ? Qu'en avez-vous pensé ?</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="num">2</span><h2 class="title">Les clients du pilote</h2></div>
+    <ul class="q">
+      <li>Quels clients pensez-vous inviter ? Taille, secteur, entreprise cotée ou non ?</li>
+      <li>Qui, chez eux, utiliserait l'outil : direction, compliance officer, RH, juriste interne ?</li>
+      <li>Combien d'utilisateurs par client ?</li>
+      <li>Leurs questions sont-elles plutôt en français, en néerlandais, en anglais ?</li>
+      <li>Avez-vous rédigé des documents propres à certains d'entre eux qu'ils pourraient interroger ?</li>
+      <li>Comment souhaitez-vous recueillir leur avis pendant le pilote ?</li>
+      <li>Quels critères vous feraient dire que le pilote est réussi ?</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="num">3</span><h2 class="title">Votre corpus</h2></div>
+    <ul class="q">
+      <li>Quels types de documents avez-vous : notes, consultations, modèles de codes de conduite, procédures, FAQ, présentations ?</li>
+      <li>Quel volume : quelques classeurs, une armoire, davantage ? Combien de pages environ ?</li>
+      <li>Une partie existe-t-elle déjà en numérique (Word, PDF, mails) ?</li>
+      <li>Sur quelle période s'étend-il ? Quelle part est encore à jour ?</li>
+      <li>Y a-t-il des annotations manuscrites, des tableaux, des documents en néerlandais ou en anglais ?</li>
+      <li>Quels documents concernent un client précis, et lesquels sont généraux ?</li>
+      <li>Qui pourrait trier les documents de votre côté ?</li>
+      <li>Qui ajoutera les nouveaux documents ensuite, et à quelle fréquence ?</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="num">4</span><h2 class="title">Vos limites déontologiques</h2></div>
+    <ul class="q">
+      <li>Avez-vous vérifié auprès de votre Ordre (OVB ou avocats.be) les règles sur les outils d'IA mis à disposition des clients ?</li>
+      <li>Quelles informations ne doivent jamais quitter le cabinet ?</li>
+      <li>Combien de temps faut-il conserver les questions et réponses de vos clients ?</li>
+      <li>Que doit faire l'outil si un client décrit un cas réel ?</li>
+    </ul>
+  </section>
+
+  <div class="prep">
+    <h2>Si vous pouvez les préparer</h2>
+    <ul>
+      <li>Une liste de 10 à 20 questions types de vos clients</li>
+      <li>Quelques documents exemples pour me faire une idée du corpus</li>
+      <li>Une estimation du volume de documents</li>
+      <li>Les profils des clients que vous envisagez pour le pilote</li>
+    </ul>
+  </div>
+
+  <section class="free">
+    <div class="sec-head"><span class="num">+</span><h2 class="title">Remarques libres</h2></div>
+    <ul class="q"><li data-q="libre">Un point que vous souhaitez ajouter, une question de votre côté ?</li></ul>
+  </section>
+
+  <div class="send">
+    <p class="intro">Quand vous avez terminé, envoyez-moi vos réponses. Elles restent enregistrées dans votre navigateur si vous revenez plus tard.</p>
+    <div class="btns">
+      <button type="button" id="btn-mail">Envoyer mes réponses</button>
+      <button type="button" id="btn-copy" class="ghost">Copier mes réponses</button>
+      <button type="button" id="btn-dl" class="ghost">Télécharger (.txt)</button>
+    </div>
+    <p class="status" id="status">Vos réponses ne sont envoyées qu'au moment où vous cliquez sur « Envoyer mes réponses ».</p>
+  </div>
+
+  <footer>Le budget et les aspects techniques feront l'objet d'un second rendez-vous, une fois votre besoin bien cerné.</footer>
+</div>
+
+<script>
+(function () {
+  // Adresse qui reçoit les réponses via FormSubmit (ou l'alias aléatoire fourni par FormSubmit après activation)
+  var EMAIL = "seddoukrachid@gmail.com";
+  var STORE = "reunion-rag-reponses-v1";
+  var statusEl = document.getElementById('status');
+  var data = {};
+  try { data = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { data = {}; }
+  var items = [];
+  document.querySelectorAll('section').forEach(function (sec, si) {
+    var title = sec.querySelector('h2.title').textContent.trim();
+    sec.querySelectorAll('ul.q li').forEach(function (li, qi) {
+      var key = li.getAttribute('data-q') || ('s' + (si + 1) + 'q' + (qi + 1));
+      var hintEl = li.querySelector('.hint');
+      var question = (hintEl ? li.textContent.replace(hintEl.textContent, '') : li.textContent).trim();
+      var choices = li.getAttribute('data-choices');
+      if (choices) {
+        var saved = {};
+        try { saved = JSON.parse(data[key] || '{}') || {}; } catch (e) { saved = {}; }
+        var picked = saved.choix || [];
+        var box = document.createElement('div');
+        box.className = 'choices';
+        var opts = [];
+        function persist() {
+          var val = { choix: opts.filter(function (o) { return o.cb.checked; }).map(function (o) { return o.label; }), autre: other.value };
+          data[key] = JSON.stringify(val);
+          try { localStorage.setItem(STORE, JSON.stringify(data)); statusEl.textContent = 'Brouillon enregistré dans ce navigateur.'; }
+          catch (e) { statusEl.textContent = "Ce navigateur ne garde pas le brouillon : envoyez vos réponses avant de fermer la page."; }
+        }
+        choices.split('|').concat(['Autre']).forEach(function (label, ci) {
+          var id = 'c-' + key + '-' + ci;
+          var wrap = document.createElement('label');
+          wrap.className = 'choice';
+          wrap.setAttribute('for', id);
+          var cb = document.createElement('input');
+          cb.type = 'checkbox'; cb.id = id; cb.checked = picked.indexOf(label) !== -1;
+          cb.addEventListener('change', function () {
+            if (label === 'Autre') { other.hidden = !cb.checked; if (cb.checked) other.focus(); }
+            persist();
+          });
+          wrap.appendChild(cb);
+          wrap.appendChild(document.createTextNode(label));
+          box.appendChild(wrap);
+          opts.push({ label: label, cb: cb });
+        });
+        var other = document.createElement('input');
+        other.type = 'text'; other.id = 'r-' + key + '-autre';
+        other.placeholder = 'Précisez';
+        other.setAttribute('aria-label', 'Autre : précisez');
+        other.value = saved.autre || '';
+        other.hidden = picked.indexOf('Autre') === -1;
+        other.addEventListener('input', persist);
+        box.appendChild(other);
+        li.appendChild(box);
+        items.push({ section: title, question: question, read: function () {
+          var c = opts.filter(function (o) { return o.cb.checked; }).map(function (o) {
+            return o.label === 'Autre' ? 'Autre : ' + (other.value.trim() || '(non précisé)') : o.label;
+          });
+          return c.join(', ');
+        } });
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.id = 'r-' + key;
+      ta.placeholder = 'Votre réponse (facultatif)';
+      ta.setAttribute('aria-label', 'Réponse : ' + question);
+      ta.value = data[key] || '';
+      ta.addEventListener('input', function () {
+        data[key] = ta.value;
+        try { localStorage.setItem(STORE, JSON.stringify(data)); statusEl.textContent = 'Brouillon enregistré dans ce navigateur.'; }
+        catch (e) { statusEl.textContent = "Ce navigateur ne garde pas le brouillon : envoyez vos réponses avant de fermer la page."; }
+      });
+      li.appendChild(ta);
+      items.push({ section: title, question: question, read: function () { return ta.value.trim(); } });
+    });
+  });
+
+  function asText() {
+    var out = ['Réponses — préparation de la réunion', ''];
+    var cur = '';
+    items.forEach(function (it) {
+      if (it.section !== cur) { cur = it.section; out.push('', '== ' + cur + ' =='); }
+      out.push('', '• ' + it.question, '  → ' + (it.read() || '(pas de réponse)'));
+    });
+    return out.join('\n');
+  }
+
+  var sendBtn = document.getElementById('btn-mail');
+  sendBtn.addEventListener('click', function () {
+    var payload = {
+      _subject: 'Réponses — préparation de la réunion RAG',
+      _template: 'table',
+      _captcha: 'false'
+    };
+    var n = 0;
+    items.forEach(function (it) {
+      n++;
+      var label = n + '. [' + it.section + '] ' + it.question;
+      payload[label] = it.read() || '(pas de réponse)';
+    });
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Envoi…';
+    statusEl.textContent = 'Envoi de vos réponses en cours…';
+    fetch('https://formsubmit.co/ajax/' + EMAIL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (res.ok && (res.j.success === true || res.j.success === 'true')) {
+          statusEl.textContent = 'Merci, vos réponses ont bien été envoyées.';
+          sendBtn.textContent = 'Réponses envoyées';
+        } else { throw new Error(); }
+      })
+      .catch(function () {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Envoyer mes réponses';
+        statusEl.textContent = "L'envoi n'a pas abouti. Réessayez, ou utilisez « Copier mes réponses » et collez-les dans un e-mail.";
+      });
+  });
+  document.getElementById('btn-copy').addEventListener('click', function () {
+    var t = asText();
+    var done = function () { statusEl.textContent = 'Réponses copiées. Collez-les dans un e-mail à Rachid.'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+    function fallback() {
+      var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select();
+      try { document.execCommand('copy'); done(); } catch (e) { statusEl.textContent = 'Copie impossible : utilisez le téléchargement.'; }
+      a.remove();
+    }
+  });
+  document.getElementById('btn-dl').addEventListener('click', function () {
+    var blob = new Blob([asText()], { type: 'text/plain;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'reponses-reunion.txt';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+</script>
+</body>
+</html>
